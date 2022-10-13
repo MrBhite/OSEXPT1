@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.experiment1.Controller.MainController">
+   <children>
+      <TableView fx:id="progressOverview" layoutX="5.0" layoutY="595.0" prefHeight="300.0" prefWidth="790.0">
+        <columns>
+          <TableColumn fx:id="POPID" prefWidth="75.0" text="PID" />
+          <TableColumn fx:id="POStatus" prefWidth="125.0" text="Status" />
+            <TableColumn fx:id="POPriority" prefWidth="100.0" text="Priority" />
+            <TableColumn fx:id="POTime" prefWidth="130.0" text="Time/Remaining" />
+            <TableColumn fx:id="POWaiting" prefWidth="100.0" text="WatingTime" />
+            <TableColumn fx:id="PONext" prefWidth="100.0" text="NextProgress" />
+            <TableColumn fx:id="POHangup" text="Hang Up" />
+            <TableColumn fx:id="PORelease" text="Release" />
+        </columns>
+      </TableView>
+      <TableView fx:id="systemLog" layoutX="800.0" layoutY="595.0" prefHeight="300.0" prefWidth="790.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="PID" />
+          <TableColumn prefWidth="150.0" text="Time" />
+            <TableColumn prefWidth="565.0" text="Content" />
+        </columns>
+      </TableView>
+      <GridPane alignment="CENTER" layoutX="40.0" layoutY="331.0" prefHeight="115.0" prefWidth="233.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="83.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="160.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="PID:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Time:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label prefHeight="24.0" prefWidth="70.0" text="Priority:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="addPID" GridPane.columnIndex="1" />
+            <TextField fx:id="addTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="addPriority" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Label layoutX="800.0" layoutY="568.0" prefHeight="24.0" prefWidth="790.0" text=" System Log：">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="5.0" layoutY="568.0" prefHeight="24.0" prefWidth="790.0" text=" Progress Overview：">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="addProgress" layoutX="40.0" layoutY="450.0" mnemonicParsing="false" onAction="#addProgress" prefHeight="36.0" prefWidth="233.0" text="Add">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="randomAdd" layoutX="40.0" layoutY="497.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="155.0" text="Random Add">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+       <ComboBox fx:id="randomNumber" layoutX="203.0" layoutY="497.0" prefHeight="36.0" prefWidth="70.0" visibleRowCount="5">
+           
+       </ComboBox>
+      <Line endX="1500.0" layoutX="50.0" layoutY="560.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#dbe1ff99" offset="0.00749063670411985" />
+                  <Stop color="#5b6bb2" offset="0.5" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endY="580.0" layoutX="300.0" layoutY="10.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#dbe1ff99" offset="0.00749063670411985" />
+                  <Stop color="#5b6bb299" offset="0.25" />
+                  <Stop color="#5b6bb2" offset="0.5" />
+                  <Stop color="#5b6bb299" offset="0.75" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="1500.0" layoutX="50.0" layoutY="60.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#dbe1ff99" offset="0.00749063670411985" />
+                  <Stop color="#5b6bb2" offset="0.5" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="260.0" layoutX="50.0" layoutY="228.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#5b6cb0e5" offset="0.75" />
+                  <Stop color="#5b6cb099" offset="0.95" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="260.0" layoutX="50.0" layoutY="300.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#5b6cb0e5" offset="0.75" />
+                  <Stop color="#5b6cb0cc" offset="0.95" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Button fx:id="start" layoutX="340.0" layoutY="389.0" mnemonicParsing="false" prefWidth="90.0" text="Start">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="pause" layoutX="340.0" layoutY="439.0" mnemonicParsing="false" prefWidth="90.0" text="Pause">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="clearProgress" layoutX="340.0" layoutY="497.0" mnemonicParsing="false" prefWidth="200.0" text="Clear Progress">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Line endY="580.0" layoutX="1160.0" layoutY="10.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#dbe1ff99" offset="0.00749063670411985" />
+                  <Stop color="#5b6bb299" offset="0.25" />
+                  <Stop color="#5b6bb2" offset="0.5" />
+                  <Stop color="#5b6bb299" offset="0.75" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <GridPane gridLinesVisible="true" layoutX="473.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="110.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="PID:" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label text="Status:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Priority:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Time:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Remaining:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Next:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="runningPID" textAlignment="CENTER" GridPane.columnIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="runningStatus" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="runningPriority" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="runningTime" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="runningRemaining" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="runningNext" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <GridPane gridLinesVisible="true" layoutX="828.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
+         <children>
+            <Label text="Running:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Next:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="3rd:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="4th:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="5th:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="6th:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="RunningPID" GridPane.columnIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="nextPID" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="thirdPID" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="fourthPID" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="fifthPID" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="sixthPID" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="110.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <ProgressBar fx:id="timeSliceSchedule" layoutX="1335.0" layoutY="180.0" prefWidth="200.0" progress="0.0" />
+      <Button layoutX="653.0" layoutY="136.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="105.0" text="Hang Up">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="473.0" layoutY="142.0" text="Running Progress:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="828.0" layoutY="142.0" text="Memory Queue:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1230.0" layoutY="175.0" text="Time Slice:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1195.0" layoutY="85.0" text="Total Progress:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1179.0" layoutY="26.0" text="Qui aimes-tu le mieux, homme énigmatique, dis ?">
+         <font>
+            <Font name="Georgia Italic" size="18.0" />
+         </font>
+      </Label>
+      <Line endX="380.0" layoutX="1150.0" layoutY="226.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#5b6cb0cc" offset="0.05" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="380.0" layoutX="1150.0" layoutY="300.0" startX="-0.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#dbe1ff99" />
+                  <Stop color="#5b6cb0cc" offset="0.05" />
+                  <Stop color="#dbe1ff99" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Label contentDisplay="CENTER" layoutX="1165.0" layoutY="130.0" text="Running Progress:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="runningProgressSchedule" layoutX="1335.0" layoutY="135.0" prefWidth="200.0" progress="0.0" />
+      <Label layoutX="57.0" layoutY="130.0" text="Time Slice:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="setPS" layoutX="57.0" layoutY="249.0" mnemonicParsing="false" prefWidth="200.0" text="Priority Schedule">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="setRR" layoutX="57.0" layoutY="172.0" mnemonicParsing="false" prefWidth="200.0" text="RR Schedule">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="timeSlice" layoutX="157.0" layoutY="131.0" prefHeight="23.0" prefWidth="100.0" />
+      <Label layoutX="58.0" layoutY="88.0" text="Current: Slice:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="WarningLabel" layoutX="1165.0" layoutY="238.0" prefHeight="59.0" prefWidth="377.0" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="NormalPic" fitHeight="150.0" fitWidth="150.0" layoutX="1200.0" layoutY="350.0">
+         <image>
+            <Image url="@../../../Img/Grade100.bmp" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="WarningPic" fitHeight="150.0" fitWidth="150.0" layoutX="1350.0" layoutY="350.0">
+         <image>
+            <Image url="@../../../Img/Grade0.bmp" />
+         </image>
+      </ImageView>
+      <Label fx:id="currentSlice" layoutX="179.0" layoutY="88.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="totalSchedule" layoutX="1335.0" layoutY="90.0" prefWidth="200.0" progress="0.0" />
+   </children>
+</AnchorPane>

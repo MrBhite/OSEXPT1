@@ -5,4 +5,6 @@ module com.example.experiment1 {
 
     opens com.example.experiment1 to javafx.fxml;
     exports com.example.experiment1;
+    exports com.example.experiment1.Controller;
+    opens com.example.experiment1.Controller to javafx.fxml;
 }
