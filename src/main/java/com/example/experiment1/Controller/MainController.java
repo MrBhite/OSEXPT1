@@ -85,7 +85,7 @@ public class MainController {
     }
 
     public void initPOTable(){
-        POPID.setCellValueFactory(cellData -> cellData.getValue);
+        //POPID.setCellValueFactory(cellData -> cellData.getValue);
         progressOverview.setItems(progressList);
     }
 
