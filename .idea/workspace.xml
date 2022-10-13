@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="empty">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Img/Grade0.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Img/Grade100.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" afterDir="false" />
+    <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/13">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +124,8 @@
       <workItem from="1665586374188" duration="4037000" />
       <workItem from="1665621069670" duration="4523000" />
       <workItem from="1665641205112" duration="100000" />
+      <workItem from="1665641948722" duration="177000" />
+      <workItem from="1665642161340" duration="100000" />
     </task>
     <task id="LOCAL-00001" summary="empty">
       <created>1665057205648</created>
@@ -156,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665058404535</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="10/13">
+      <created>1665642204005</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1665642204005</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,7 +174,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="empty" />
-    <option name="LAST_COMMIT_MESSAGE" value="empty" />
+    <MESSAGE value="10/13" />
+    <option name="LAST_COMMIT_MESSAGE" value="10/13" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
