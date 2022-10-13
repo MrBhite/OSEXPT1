@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/13">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,9 +23,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../../../../../../../../Tool/StudySoftware/IDEA/JDK/jdk18/lib/src.zip!/java.base/java/lang/String.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -126,6 +122,7 @@
       <workItem from="1665641205112" duration="100000" />
       <workItem from="1665641948722" duration="177000" />
       <workItem from="1665642161340" duration="100000" />
+      <workItem from="1665643486069" duration="309000" />
     </task>
     <task id="LOCAL-00001" summary="empty">
       <created>1665057205648</created>

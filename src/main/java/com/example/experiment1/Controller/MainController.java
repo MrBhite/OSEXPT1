@@ -101,4 +101,8 @@ public class MainController {
                 state,
                 Integer.parseInt(addPID.getText()) + 1));
     }
+
+    public void initLogTable(){
+
+    }
 }
