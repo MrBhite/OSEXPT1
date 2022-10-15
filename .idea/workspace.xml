@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/13">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/SystemLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,14 +22,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
         <option value="JavaFXApplication" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../../../../../../../../Tool/StudySoftware/IDEA/JDK/jdk18/lib/src.zip!/java.base/java/lang/String.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -123,6 +133,14 @@
       <workItem from="1665641948722" duration="177000" />
       <workItem from="1665642161340" duration="100000" />
       <workItem from="1665643486069" duration="309000" />
+      <workItem from="1665645378640" duration="41000" />
+      <workItem from="1665666037231" duration="607000" />
+      <workItem from="1665668521346" duration="603000" />
+      <workItem from="1665675750285" duration="3854000" />
+      <workItem from="1665708338989" duration="8722000" />
+      <workItem from="1665802047601" duration="1507000" />
+      <workItem from="1665805933631" duration="3294000" />
+      <workItem from="1665819613478" duration="4624000" />
     </task>
     <task id="LOCAL-00001" summary="empty">
       <created>1665057205648</created>
@@ -180,6 +198,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
