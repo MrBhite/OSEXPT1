@@ -100,7 +100,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-       <ComboBox fx:id="randomNumber" layoutX="203.0" layoutY="497.0" prefHeight="36.0" prefWidth="70.0" promptText="0" visibleRowCount="5">
+       <ComboBox fx:id="randomNumber" layoutX="203.0" layoutY="497.0" prefHeight="36.0" prefWidth="70.0" promptText="1" visibleRowCount="5">
            
        </ComboBox>
       <Line endX="1500.0" layoutX="50.0" layoutY="560.0" startX="-0.0" strokeWidth="3.0">
@@ -153,12 +153,12 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Button fx:id="start" layoutX="340.0" layoutY="389.0" mnemonicParsing="false" prefWidth="90.0" text="Start">
+      <Button fx:id="start" layoutX="340.0" layoutY="389.0" mnemonicParsing="false" onAction="#start" prefWidth="90.0" text="Start">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="pause" layoutX="340.0" layoutY="439.0" mnemonicParsing="false" prefWidth="90.0" text="Pause">
+      <Button fx:id="pause" layoutX="340.0" layoutY="439.0" mnemonicParsing="false" onAction="#pause" prefWidth="90.0" text="Pause">
          <font>
             <Font size="18.0" />
          </font>
@@ -185,7 +185,7 @@
       <GridPane gridLinesVisible="true" layoutX="473.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="110.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -233,31 +233,49 @@
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
             <Label fx:id="runningStatus" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
             <Label fx:id="runningPriority" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
             <Label fx:id="runningSize" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
             <Label fx:id="runningRemaining" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
             <Label fx:id="runningNext" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
          </children>
       </GridPane>
@@ -326,7 +344,7 @@
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="110.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

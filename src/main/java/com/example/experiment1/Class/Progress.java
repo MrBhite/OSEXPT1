@@ -3,11 +3,11 @@ package com.example.experiment1.Class;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Progress {
+public class Progress extends Thread {
     private PCB pcb;
     private String PID;
     private int status;//0->ready 1->running 2->waiting 3->hangup 4->done
-    private int priority;
+    private int priorityy;
     private double TTime;
     private double RTime;
     private int size;
@@ -16,16 +16,20 @@ public class Progress {
     private String former;
 
     public Progress(){;}
-    public Progress(String PID, int status, String former, int priority, double TTime, double RTime, int size, int start, int next){
-        this.pcb = new PCB(PID, status, former, priority, TTime, RTime, size, start, next);
+    public Progress(String PID, int status, String former, int priorityy, double TTime, double RTime, int size, int start, int next){
         this.PID = PID;
         this.status = status;
         this.former = former;
-        this.priority = priority;
+        this.priorityy = priorityy;
         this.TTime = TTime;
         this.RTime = RTime;
         this.size = size;
-        this.next = next;
+        this.start = start;
+        this.next = next%8192;
+    }
+
+    public void createPCB(){
+        this.pcb = new PCB(PID, status, former, priorityy, TTime, RTime, size, start, next%8192);
     }
 
     public void setPID(String PID) {
@@ -55,12 +59,12 @@ public class Progress {
         return pcb;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setPriorityy(int priorityy) {
+        this.priorityy = priorityy;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getPriorityy() {
+        return priorityy;
     }
 
     public void setTTime(double TTime) {
@@ -88,7 +92,7 @@ public class Progress {
     }
 
     public void setStart(int start) {
-        this.start = start;
+        this.start = start%8192;
     }
 
     public int getStart() {
@@ -111,8 +115,20 @@ public class Progress {
         return former;
     }
 
+    @Override
     public void run(){
-        this.pcb.setState("running");
+        int i;
+        for( i = (int)this.RTime*10; i>0; i--){
+            System.out.println(i);
+            try{
+                Thread.sleep(100);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            this.RTime-=0.1;
+            this.pcb.setRTime(RTime);
+        }
+        this.interrupt();
     }
 
     public String ready(){

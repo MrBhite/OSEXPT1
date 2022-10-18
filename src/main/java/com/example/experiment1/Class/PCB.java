@@ -1,26 +1,32 @@
 package com.example.experiment1.Class;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class PCB {
     private String PID;
     private int status;//0->ready 1->running 2->waiting 3->hangup
-    private int priority;
+    private int priorityy;
     private double TTime;
     private double RTime;
+
+    private DoubleProperty RTimeProperty;
     private int size;
     private int start;
     private int next;
     private String former;
 
     public PCB(){}
-    public PCB(String PID, int status, String former, int priority, double TTime, double RTime, int size, int start, int next){
+    public PCB(String PID, int status, String former, int priorityy, double TTime, double RTime, int size, int start, int next){
         this.PID = PID;
         this.status=status;
         this.former = former;
         this.TTime = TTime;
         this.RTime = RTime;
+        this.RTimeProperty = new SimpleDoubleProperty(RTime);
         this.size=size;
         this.start=start;
-        this. priority = priority;
+        this. priorityy = priorityy;
         this.next = next;
     }
 
@@ -51,7 +57,7 @@ public class PCB {
         return PID;
     }
 
-    public void setTTime(int TTime) {
+    public void setTTime(double TTime) {
         this.TTime = TTime;
     }
 
@@ -59,20 +65,25 @@ public class PCB {
         return TTime;
     }
 
-    public void setRTime(int RTime) {
+    public void setRTime(double RTime) {
         this.RTime = RTime;
+        this.RTimeProperty.setValue(RTime);
     }
 
     public double getRTime() {
         return RTime;
     }
 
-    public void setPriority(int Priority) {
-        this.priority = Priority;
+    public DoubleProperty getRTimeProperty() {
+        return RTimeProperty;
     }
 
-    public int getPriority() {
-        return priority;
+    public void setPriorityy(int Priorityy) {
+        this.priorityy = Priorityy;
+    }
+
+    public int getPriorityy() {
+        return priorityy;
     }
 
     public void setState(String state) {

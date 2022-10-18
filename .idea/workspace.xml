@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/13">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/SystemLog.java" afterDir="false" />
+    <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/15&#10;目前的设想是，用progressList接收所有的进程，用PCBList接收在内存内运行的进程&#10;正好也符合进了内存才开始创建PCB。&#10;对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。&#10;暂定为此。">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Service/ProgressControlService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,6 +140,13 @@
       <workItem from="1665802047601" duration="1507000" />
       <workItem from="1665805933631" duration="3294000" />
       <workItem from="1665819613478" duration="4624000" />
+      <workItem from="1665824588463" duration="226000" />
+      <workItem from="1665848822866" duration="657000" />
+      <workItem from="1665904443778" duration="7318000" />
+      <workItem from="1665919385026" duration="1609000" />
+      <workItem from="1665928482414" duration="3598000" />
+      <workItem from="1666003408999" duration="11910000" />
+      <workItem from="1666085582493" duration="59000" />
     </task>
     <task id="LOCAL-00001" summary="empty">
       <created>1665057205648</created>
@@ -170,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665642204005</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="10/15&#10;目前的设想是，用progressList接收所有的进程，用PCBList接收在内存内运行的进程&#10;正好也符合进了内存才开始创建PCB。&#10;对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。&#10;暂定为此。">
+      <created>1665824626656</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1665824626656</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +203,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="empty" />
     <MESSAGE value="10/13" />
-    <option name="LAST_COMMIT_MESSAGE" value="10/13" />
+    <MESSAGE value="10/15&#10;目前的设想是，用progressList接收所有的进程，用PCBList接收在内存内运行的进程&#10;正好也符合进了内存才开始创建PCB。&#10;对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。&#10;暂定为此。" />
+    <option name="LAST_COMMIT_MESSAGE" value="10/15&#10;目前的设想是，用progressList接收所有的进程，用PCBList接收在内存内运行的进程&#10;正好也符合进了内存才开始创建PCB。&#10;对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。&#10;暂定为此。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -198,10 +212,6 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang" />
           <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.RuntimeException" package="java.lang" />
-          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

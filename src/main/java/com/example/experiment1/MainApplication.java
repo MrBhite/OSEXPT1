@@ -13,13 +13,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 
 public class MainApplication extends Application {
     private static Stage stage;
     private static MainController mainController;
 
-    private static int PID;
-    private static int location;//location指向新进程的第一位
+    public static DecimalFormat df = new DecimalFormat( "0.0");
+
+    private static int PID;//下一个随机进程的PID
+    private static int location;//location指向新进程的第一位储存位置
+    private static int reserveProgress;//后背队列第一个Progress的索引
     private static ObservableList<Progress> progressList;
     private static ObservableList<PCB> PCBList;
     private static ObservableList<SystemLog> logList;
@@ -27,6 +31,16 @@ public class MainApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    public static int getReserveProgress() {
+        return reserveProgress;
+    }
+
+    public static void setReserveProgress(int reserveProgress) {
+        MainApplication.reserveProgress = reserveProgress;
+    }
+
+
     @Override
     public void start(Stage PrimaryStage) throws IOException {
         stage = PrimaryStage;
@@ -74,11 +88,12 @@ public class MainApplication extends Application {
     }
 
     public static void initialize(){
-
-        PID=1;
+        PID = 0;
         location = 0;
+        reserveProgress = 1;
 
-        Progress protect= new Progress("0",1,"0",0,1,1,1,1,1);
+        Progress protect= new Progress("0",1,"0",2,2,2,2,2,2);
+        protect.createPCB();
         progressList = FXCollections.observableArrayList(protect);
         PCBList = FXCollections.observableArrayList(protect.getPcb());
 
@@ -86,7 +101,25 @@ public class MainApplication extends Application {
                 new SystemLog("0","NULL","System Start!")
         );
     }
+
+    //加入新的PCB
+    public static boolean insertPCB(PCB pcb){
+        //检查内存溢出
+        if((location+pcb.getSize())>progressList.get(1).getStart()+8192){
+            mainController.error(1);
+            return false;
+        }
+        PCBList.add(pcb);
+        return true;
+    }
+
+    //删除第i个PCb
+    public static void deletePCB(PCB pcb){
+        PCBList.remove(pcb);
+    }
 }
+
+
 
 
 /*
@@ -94,4 +127,9 @@ public class MainApplication extends Application {
 * 正好也符合进了内存才开始创建PCB。
 * 对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。
 * 暂定为此。
+* */
+
+/*
+* 只有要进PCBList的Progress才会分配调用createPCB函数
+* 进而创建PCB
 * */
