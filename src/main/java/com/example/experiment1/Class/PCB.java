@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class PCB {
     private String PID;
-    private int status;//0->ready 1->running 2->waiting 3->hangup
+    private int status;//0->ready 1->running 2->waiting 3->hangup 4->Done 5->Out
     private int priorityy;
     private double TTime;
     private double RTime;
@@ -91,8 +91,9 @@ public class PCB {
             case "ready" -> this.status=0;
             case "running" -> this.status=1;
             case "waiting" -> this.status=2;
-            case "hangup" -> this.status=3;
+            case "Hang Up" -> this.status=3;
             case "done"->this.status=4;
+            case "out"->this.status=5;
         }
     }
 

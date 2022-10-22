@@ -12,18 +12,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainApplication extends Application {
     private static Stage stage;
     private static MainController mainController;
 
     public static DecimalFormat df = new DecimalFormat( "0.0");
+    public static SimpleDateFormat ddf = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
+    private static boolean pause;
+    private static boolean privilege;
     private static int PID;//下一个随机进程的PID
     private static int location;//location指向新进程的第一位储存位置
-    private static int reserveProgress;//后背队列第一个Progress的索引
+    private static int reserveProgress;//后背队列第一个Progress的PID
+    private static double timeSlice;//时间片
     private static ObservableList<Progress> progressList;
     private static ObservableList<PCB> PCBList;
     private static ObservableList<SystemLog> logList;
@@ -32,12 +37,40 @@ public class MainApplication extends Application {
         launch(args);
     }
 
+    public static SimpleDateFormat getDdf(){
+        return ddf;
+    }
+
     public static int getReserveProgress() {
         return reserveProgress;
     }
 
     public static void setReserveProgress(int reserveProgress) {
         MainApplication.reserveProgress = reserveProgress;
+    }
+
+    public static boolean isPause() {
+        return pause;
+    }
+
+    public static void setPause(boolean pause) {
+        MainApplication.pause = pause;
+    }
+
+    public static boolean isPrivilege() {
+        return privilege;
+    }
+
+    public static void setPrivilege(boolean privilege) {
+        MainApplication.privilege = privilege;
+    }
+
+    public static double getTimeSlice() {
+        return timeSlice;
+    }
+
+    public static void setTimeSlice(double timeSlice) {
+        MainApplication.timeSlice = timeSlice;
     }
 
 
@@ -91,14 +124,17 @@ public class MainApplication extends Application {
         PID = 0;
         location = 0;
         reserveProgress = 1;
+        privilege=true;//默认为优先级
+        timeSlice=60;//默认优先级，时间片为60(设置为一个极大值，在可预见的模拟中不会跑完)
+        pause = false;//默认为未停止
 
-        Progress protect= new Progress("0",1,"0",2,2,2,2,2,2);
+        Progress protect= new Progress("Protected",1,"Null",0,2,2,0,0,0);
         protect.createPCB();
         progressList = FXCollections.observableArrayList(protect);
         PCBList = FXCollections.observableArrayList(protect.getPcb());
 
         logList = FXCollections.observableArrayList(
-                new SystemLog("0","NULL","System Start!")
+                new SystemLog("0","Null","System Start!")
         );
     }
 

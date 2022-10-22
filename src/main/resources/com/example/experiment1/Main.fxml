@@ -30,9 +30,9 @@
       </TableView>
       <TableView fx:id="systemLog" layoutX="800.0" layoutY="595.0" prefHeight="300.0" prefWidth="790.0">
         <columns>
-          <TableColumn fx:id="SLTime" prefWidth="150.0" text="Time" />
+          <TableColumn fx:id="SLTime" prefWidth="200.0" text="Time" />
           <TableColumn fx:id="SLPID" prefWidth="75.0" text="PID" />
-            <TableColumn fx:id="SLContent" prefWidth="565.0" text="Content" />
+            <TableColumn fx:id="SLContent" prefWidth="515.0" text="Content" />
         </columns>
       </TableView>
       <GridPane alignment="CENTER" layoutX="40.0" layoutY="240.0" prefHeight="206.0" prefWidth="233.0">
@@ -153,17 +153,12 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Button fx:id="start" layoutX="340.0" layoutY="389.0" mnemonicParsing="false" onAction="#start" prefWidth="90.0" text="Start">
+      <Button fx:id="start" layoutX="680.0" layoutY="185.0" mnemonicParsing="false" onAction="#start" prefWidth="105.0" text="Start">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="pause" layoutX="340.0" layoutY="439.0" mnemonicParsing="false" onAction="#pause" prefWidth="90.0" text="Pause">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="clearProgress" layoutX="340.0" layoutY="497.0" mnemonicParsing="false" prefWidth="200.0" text="Clear Progress">
+      <Button fx:id="pause" layoutX="680.0" layoutY="250.0" mnemonicParsing="false" onAction="#pause" prefWidth="105.0" text="Pause">
          <font>
             <Font size="18.0" />
          </font>
@@ -182,7 +177,7 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <GridPane gridLinesVisible="true" layoutX="473.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
+      <GridPane gridLinesVisible="true" layoutX="370.0" layoutY="175.0" prefHeight="280.0" prefWidth="285.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="110.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
@@ -279,7 +274,7 @@
             </Label>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="828.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
+      <GridPane gridLinesVisible="true" layoutX="805.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
          <children>
             <Label text="Running:">
                <font>
@@ -355,28 +350,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <ProgressBar fx:id="timeSliceSchedule" layoutX="1335.0" layoutY="189.0" prefWidth="200.0" progress="0.0" />
-      <Button layoutX="653.0" layoutY="136.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="105.0" text="Hang Up">
+      <Button fx:id="hangUp" layoutX="550.0" layoutY="135.0" mnemonicParsing="false" onAction="#hangUpRunning" prefHeight="36.0" prefWidth="105.0" text="Hang Up">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="473.0" layoutY="142.0" text="Running Progress:">
+      <Label layoutX="370.0" layoutY="140.0" text="Running Progress:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="828.0" layoutY="142.0" text="Memory Queue:">
+      <Label layoutX="805.0" layoutY="142.0" text="Memory Queue:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label contentDisplay="CENTER" layoutX="1229.0" layoutY="186.0" text="Time Slice:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="CENTER" layoutX="1195.0" layoutY="119.0" text="Total Progress:">
+      <Label contentDisplay="CENTER" layoutX="1175.0" layoutY="65.0" text="System Tips:">
          <font>
             <Font size="18.0" />
          </font>
@@ -408,23 +397,17 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Label contentDisplay="CENTER" layoutX="1165.0" layoutY="151.0" text="Running Progress:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <ProgressBar fx:id="runningProgressSchedule" layoutX="1335.0" layoutY="157.0" prefWidth="200.0" progress="0.0" />
       <Label layoutX="58.0" layoutY="97.0" text="Time Slice:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="setPS" layoutX="57.0" layoutY="175.0" mnemonicParsing="false" prefWidth="200.0" text="Priority Schedule">
+      <Button fx:id="setPS" layoutX="57.0" layoutY="175.0" mnemonicParsing="false" onAction="#setPriority" prefWidth="200.0" text="Priority Schedule">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="setRR" layoutX="57.0" layoutY="133.0" mnemonicParsing="false" prefWidth="200.0" text="RR Schedule">
+      <Button fx:id="setRR" layoutX="57.0" layoutY="133.0" mnemonicParsing="false" onAction="#setRR" prefWidth="200.0" text="RR Schedule">
          <font>
             <Font size="18.0" />
          </font>
@@ -455,17 +438,45 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="totalSchedule" layoutX="1335.0" layoutY="122.0" prefWidth="200.0" progress="0.0" />
-      <Label contentDisplay="CENTER" layoutX="1185.0" layoutY="88.0" text="Memory Usage:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <ProgressBar fx:id="memorySchedule" layoutX="1335.0" layoutY="91.0" prefWidth="200.0" progress="0.0" />
       <Label fx:id="restMemory" layoutX="971.0" layoutY="142.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Label contentDisplay="CENTER" layoutX="1190.0" layoutY="90.0" text="1.PID is unrepeatable">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1190.0" layoutY="115.0" text="2.Mods can only be changed">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1205.0" layoutY="140.0" text="After the system is paused">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1190.0" layoutY="165.0" text="3.Bug is unavoidable">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="1205.0" layoutY="190.0" text="So just treat them as a special character">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="releasePID" layoutX="680.0" layoutY="315.0" prefHeight="23.0" prefWidth="105.0" promptText="PID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="releaseButton" layoutX="680.0" layoutY="380.0" mnemonicParsing="false" onAction="#release" prefWidth="105.0" text="Release ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

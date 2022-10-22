@@ -92,6 +92,8 @@ public class MainController {
     public TableColumn SLPID;
     public TableColumn SLTime;
     public TableColumn SLContent;
+    public TextField releasePID;
+    public Button releaseButton;
 
     private MainApplication mainApplication;//主程序
     private ProgressControlService progressControlService;
@@ -152,7 +154,7 @@ public class MainController {
     //添加进程
     public void addProgress(ActionEvent actionEvent) {
         String PID;
-        String former = "0";
+        String former = addFormer.getText();
         int priority;
         double time;
         int size;
@@ -193,9 +195,9 @@ public class MainController {
          */
 
         //
-        int status = 0;
+        int status = 5;
         if (mainApplication.getProgressList().size() < 6) {
-            status = 1;
+            status = 0;
         }
 
         Progress tmp = new Progress(PID,
@@ -212,12 +214,24 @@ public class MainController {
         this.mainApplication.getProgressList().add(tmp);
 
         if(MainApplication.getPCBList().size()<6) {
+            tmp.setStatus(0);
             tmp.createPCB();
             if(!this.mainApplication.insertPCB(tmp.getPcb()))
                 return;
+            //查看是否有前驱并置为wait
+            for(Progress pro:mainApplication.getProgressList()){
+                if(pro.getPID().equals(tmp.getFormer())&&!(pro.getStatus().equals("Done"))){
+                    tmp.setStatus(2);
+                    tmp.getPcb().setState("waiting");
+                }
+            }
             MainApplication.setReserveProgress(MainApplication.getReserveProgress()+1);
-            System.out.println(MainApplication.getReserveProgress());
         }
+
+        //更新系统日志
+        Date tmpDate = new Date(System.currentTimeMillis());
+        String tmpDateString = mainApplication.getDdf().format(tmpDate);
+        mainApplication.getLogList().add(new SystemLog(tmpDateString,tmp.getPID(),"New Progress Added and Now is "+tmp.getStatus()));
 
         //更新全局变量
         mainApplication.setLocation((location + size)%8192);
@@ -233,26 +247,25 @@ public class MainController {
         long  t = System.currentTimeMillis(); //获得当前时间的毫秒数
         for(int i = Integer.parseInt(randomNumber.getValue().toString()); i > 0 ; i--){
             Random rd =  new  Random(t+i); //作为种子数传入到Random的构造器中
-            int time = rd.nextInt(4)+1;
+            double time = Double.parseDouble(mainApplication.df.format(rd.nextInt(40)*0.1+2));
             int size = (rd.nextInt(10)+1)*128;
             int location;
             int pid = MainApplication.getPID();
             location = MainApplication.getLocation();
-
             /*
             if((location+size)>this.mainApplication.getProgressList().get(0).getStart()+8192){
                 error(1);
             }
              */
 
-            int status = 0;
+            int status = 5;
             if (mainApplication.getProgressList().size() < 6) {
-                status = 1;
+                status = 0;
             }
 
             Progress tmp = new Progress(String.valueOf(pid+1),
                     status,
-                    "0",
+                    "Null",
                     rd.nextInt(7)+1,
                     time,
                     time,
@@ -263,11 +276,18 @@ public class MainController {
             //加入新进程
             this.mainApplication.getProgressList().add(tmp);
 
+            //新进程入PCB队列
             if(MainApplication.getPCBList().size()<6) {
+                tmp.setStatus(0);
                 tmp.createPCB();
                 this.mainApplication.insertPCB(tmp.getPcb());
                 MainApplication.setReserveProgress(MainApplication.getReserveProgress()+1);
             }
+
+            //更新系统日志
+            Date tmpDate = new Date(System.currentTimeMillis());
+            String tmpDateString = mainApplication.getDdf().format(tmpDate);
+            mainApplication.getLogList().add(new SystemLog(tmpDateString,tmp.getPID(),"New Progress Added and Now is "+tmp.getStatus()));
 
             //更新全局变量
             mainApplication.setLocation((location + size)%8192);
@@ -277,7 +297,11 @@ public class MainController {
 
     //开始模拟
     public void start(ActionEvent actionEvent) {
-        progressControlService.setPCBList(MainApplication.getPCBList());
+        if(MainApplication.isPause() == true){
+            MainApplication.setPause(false);
+            return;
+        }
+        progressControlService.setPCBList(MainApplication.getPCBList(),mainApplication.getProgressList());
         progressControlService.start();
         //setRunning();
         /*
@@ -288,15 +312,15 @@ public class MainController {
     }
 
     //将第i个PCBList中的元素放入中间的Running栏
-    public void setRunning(){
+    public void refreshBoard(){
+        //runningProgress栏
         runningPID.setText(MainApplication.getPCBList().get(0).getPID());
         runningStatus.setText(MainApplication.getPCBList().get(0).getStatus());
         runningPriority.setText(String.valueOf(MainApplication.getPCBList().get(0).getPriorityy()));
         runningNext.setText(String.valueOf(MainApplication.getPCBList().get(0).getNext()));
         runningRemaining.setText(String.valueOf(mainApplication.df.format(MainApplication.getPCBList().get(0).getRTime())));
         runningSize.setText(String.valueOf(MainApplication.getPCBList().get(0).getSize()));
-
-        //绑定
+        //绑定RTime
         MainApplication.getPCBList().get(0).getRTimeProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -308,6 +332,16 @@ public class MainController {
                 });
             }
         });
+
+        //nextProgress栏
+        switch (mainApplication.getPCBList().size()){
+            case 6:sixthPID.setText(mainApplication.getPCBList().get(5).getPID());
+            case 5:fifthPID.setText(mainApplication.getPCBList().get(4).getPID());
+            case 4:fourthPID.setText(mainApplication.getPCBList().get(3).getPID());
+            case 3:thirdPID.setText(mainApplication.getPCBList().get(2).getPID());
+            case 2:nextPID.setText(mainApplication.getPCBList().get(1).getPID());
+            case 1:RunningPID.setText(mainApplication.getPCBList().get(0).getPID());
+        }
     }
 
     //没办法人家就是小笨猪人家就是不会自己写exception嘛。
@@ -328,10 +362,62 @@ public class MainController {
     }
 
     public void pause(ActionEvent actionEvent) {
-        Progress tmp = mainApplication.getProgressList().get(0);
-        if (tmp.isAlive())
-            System.out.println("Alive");
-        else
-            System.out.println("wait");
+        MainApplication.setPause(true);
+    }
+
+    public void setRR(ActionEvent actionEvent) {
+        //获得时间
+        Date tmpDate = new Date(System.currentTimeMillis());
+        String tmpDateString = getMainApplication().getDdf().format(tmpDate);
+        getMainApplication().getLogList().add(new SystemLog(tmpDateString,"NULL","System Mod Changed To RR Mod"));
+
+        mainApplication.setPrivilege(false);
+        mainApplication.setTimeSlice(Double.parseDouble(timeSlice.getText()));
+        currentSlice.setText(timeSlice.getText());
+    }
+
+    public void setPriority(ActionEvent actionEvent) {
+        //获得时间
+        Date tmpDate = new Date(System.currentTimeMillis());
+        String tmpDateString = getMainApplication().getDdf().format(tmpDate);
+        getMainApplication().getLogList().add(new SystemLog(tmpDateString,"NULL","System Mod Changed To Priority Mod"));
+
+        mainApplication.setPrivilege(true);
+        currentSlice.setText("");
+        mainApplication.setTimeSlice(60);
+    }
+
+    public void hangUpRunning(ActionEvent actionEvent) {
+        String tmpID = mainApplication.getPCBList().get(0).getPID();
+        int i;
+        for (i = mainApplication.getProgressList().size() - 1; i >= 0; i--) {
+            if (mainApplication.getProgressList().get(i).getPID().equals(tmpID))
+                break;
+        }
+        Progress tmpProgress = mainApplication.getProgressList().get(i);
+        tmpProgress.setHangUp(true);
+        tmpProgress.setStatus(3);
+        tmpProgress.getPcb().setState("Hang Up");
+        System.out.println("test"+tmpProgress.getPcb().getStatus());
+    }
+
+    public void release(ActionEvent actionEvent) {
+        String releasePID = this.releasePID.getText();
+        for(Progress tmpProgress:mainApplication.getProgressList()){
+            if (tmpProgress.getPID().equals(releasePID)){
+                //解挂操作
+                tmpProgress.setHangUp(false);
+
+                //修改属性
+                tmpProgress.setStatus(0);
+                tmpProgress.getPcb().setState("ready");
+
+                //更新日志
+                Date tmpDate = new Date(System.currentTimeMillis());
+                String tmpDateString = getMainApplication().getDdf().format(tmpDate);
+                getMainApplication().getLogList().add(new SystemLog(tmpDateString,releasePID,"Progress Released."));
+                break;
+            }
+        }
     }
 }

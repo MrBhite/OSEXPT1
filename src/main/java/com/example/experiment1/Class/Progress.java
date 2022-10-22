@@ -3,10 +3,12 @@ package com.example.experiment1.Class;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.text.DecimalFormat;
+
 public class Progress extends Thread {
     private PCB pcb;
     private String PID;
-    private int status;//0->ready 1->running 2->waiting 3->hangup 4->done
+    private int status;//0->ready 1->running 2->waiting 3->hangUp 4->done 5->Out
     private int priorityy;
     private double TTime;
     private double RTime;
@@ -14,6 +16,8 @@ public class Progress extends Thread {
     private int start;
     private int next;
     private String former;
+    private boolean runnable;
+    private boolean hangUp;
 
     public Progress(){;}
     public Progress(String PID, int status, String former, int priorityy, double TTime, double RTime, int size, int start, int next){
@@ -26,10 +30,14 @@ public class Progress extends Thread {
         this.size = size;
         this.start = start;
         this.next = next%8192;
+        this.pcb=null;
+        this.runnable = true;
+        this.hangUp = false;
     }
 
-    public void createPCB(){
+    public PCB createPCB(){
         this.pcb = new PCB(PID, status, former, priorityy, TTime, RTime, size, start, next%8192);
+        return this.pcb;
     }
 
     public void setPID(String PID) {
@@ -51,6 +59,7 @@ public class Progress extends Thread {
             case 2:return "Waiting";
             case 3:return "Hang Up";
             case 4:return "Done";
+            case 5:return "Out";
             default:return "Error!";
         }
     }
@@ -61,6 +70,7 @@ public class Progress extends Thread {
 
     public void setPriorityy(int priorityy) {
         this.priorityy = priorityy;
+        this.pcb.setPriorityy(priorityy);
     }
 
     public int getPriorityy() {
@@ -117,15 +127,22 @@ public class Progress extends Thread {
 
     @Override
     public void run(){
-        int i;
-        for( i = (int)this.RTime*10; i>0; i--){
-            System.out.println(i);
+        int i = (int)(this.RTime*10);
+        for( ; i>0; i--){
+            //如果被挂起
+            if(hangUp)
+                break;
+
+            //如果时间片耗尽则忙等
+            while(!runnable);
+
             try{
                 Thread.sleep(100);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
-            this.RTime-=0.1;
+            this.RTime = Double.parseDouble(new DecimalFormat( "0.0").format(this.RTime-0.1));
+            System.out.println("PID:"+this.PID+"---remain:"+this.RTime+"---"+this.status);
             this.pcb.setRTime(RTime);
         }
         this.interrupt();
@@ -141,4 +158,19 @@ public class Progress extends Thread {
         return this.pcb.getPID();
     }
 
+    public boolean isRunnable() {
+        return runnable;
+    }
+
+    public void setRunnable(boolean runnable) {
+        this.runnable = runnable;
+    }
+
+    public boolean isHangUp() {
+        return hangUp;
+    }
+
+    public void setHangUp(boolean hangUp) {
+        this.hangUp = hangUp;
+    }
 }
