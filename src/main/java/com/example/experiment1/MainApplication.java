@@ -141,12 +141,15 @@ public class MainApplication extends Application {
     //加入新的PCB
     public static boolean insertPCB(PCB pcb){
         //检查内存溢出
+        /*
         if((location+pcb.getSize())>progressList.get(1).getStart()+8192){
             mainController.error(1);
             return false;
         }
+         */
         PCBList.add(pcb);
         return true;
+
     }
 
     //删除第i个PCb

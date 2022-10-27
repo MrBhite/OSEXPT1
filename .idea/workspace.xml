@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/18&#10;完成了单个进程运行功能&#10;下一步实现多个进程连续运行">
+    <list default="true" id="a8e2135e-6ac8-415e-9857-43925633a075" name="变更" comment="10/22&#10;功能完备，BUg改不过来，最终版定版">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/PCB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Class/Progress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Service/ProgressControlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/experiment1/Service/ProgressControlService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/experiment1/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +46,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/My/Study/Professional-class/practical training/22-AT/项目/demo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/My/Study/Professional-class/in-class/22-AU/operating-system theory/experiment/experiment1/OSEXPT1&quot;,
     &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -158,7 +154,11 @@
       <workItem from="1666317684943" duration="3883000" />
       <workItem from="1666340406806" duration="5419000" />
       <workItem from="1666361723451" duration="7533000" />
-      <workItem from="1666426527016" duration="65000" />
+      <workItem from="1666426527016" duration="183000" />
+      <workItem from="1666690847542" duration="24000" />
+      <workItem from="1666708121744" duration="3401000" />
+      <workItem from="1666769378972" duration="1018000" />
+      <workItem from="1666776409958" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="empty">
       <created>1665057205648</created>
@@ -202,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666085656480</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="10/22&#10;功能完备，BUg改不过来，最终版定版">
+      <created>1666426601532</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1666426601532</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +231,8 @@
     <MESSAGE value="10/13" />
     <MESSAGE value="10/15&#10;目前的设想是，用progressList接收所有的进程，用PCBList接收在内存内运行的进程&#10;正好也符合进了内存才开始创建PCB。&#10;对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。&#10;暂定为此。" />
     <MESSAGE value="10/18&#10;完成了单个进程运行功能&#10;下一步实现多个进程连续运行" />
-    <option name="LAST_COMMIT_MESSAGE" value="10/18&#10;完成了单个进程运行功能&#10;下一步实现多个进程连续运行" />
+    <MESSAGE value="10/22&#10;功能完备，BUg改不过来，最终版定版" />
+    <option name="LAST_COMMIT_MESSAGE" value="10/22&#10;功能完备，BUg改不过来，最终版定版" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

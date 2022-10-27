@@ -134,7 +134,14 @@ public class Progress extends Thread {
                 break;
 
             //如果时间片耗尽则忙等
-            while(!runnable);
+            while(!runnable)
+            {
+                try{
+                    Thread.sleep(10);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
 
             try{
                 Thread.sleep(100);
