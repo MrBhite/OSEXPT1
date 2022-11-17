@@ -1,5 +1,6 @@
 package com.example.experiment1;
 
+import com.example.experiment1.Class.MemorySlice;
 import com.example.experiment1.Class.PCB;
 import com.example.experiment1.Class.Progress;
 import com.example.experiment1.Class.SystemLog;
@@ -10,15 +11,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 public class MainApplication extends Application {
     private static Stage stage;
     private static MainController mainController;
+
+    private Parent root;
 
     public static DecimalFormat df = new DecimalFormat( "0.0");
     public static SimpleDateFormat ddf = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
@@ -32,6 +37,9 @@ public class MainApplication extends Application {
     private static ObservableList<Progress> progressList;
     private static ObservableList<PCB> PCBList;
     private static ObservableList<SystemLog> logList;
+    private static ObservableList<MemorySlice> memorySlicesList;
+    private static HashMap<Progress,Label> PLMap;
+    private static Vector<Integer> memorySliceLocation;
 
     public static void main(String[] args) {
         launch(args);
@@ -73,14 +81,30 @@ public class MainApplication extends Application {
         MainApplication.timeSlice = timeSlice;
     }
 
+    public static HashMap<Progress, Label> getPLMap() {
+        return PLMap;
+    }
+
+    public static void setPLMap(HashMap<Progress, Label> PLMap) {
+        MainApplication.PLMap = PLMap;
+    }
+
+    public static Vector<Integer> getMemorySliceLocation() {
+        return memorySliceLocation;
+    }
+
+    public static void setMemorySliceLocation(Vector<Integer> memorySliceLocation) {
+        MainApplication.memorySliceLocation = memorySliceLocation;
+    }
 
     @Override
     public void start(Stage PrimaryStage) throws IOException {
         stage = PrimaryStage;
         stage.setTitle("Test");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Main.fxml"));
-        Parent root = fxmlLoader.load();
+        root = fxmlLoader.load();
         Scene scene = new Scene (root);
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -103,6 +127,7 @@ public class MainApplication extends Application {
     public ObservableList<SystemLog> getLogList() {
         return logList;
     }
+    public static ObservableList<MemorySlice> getMemorySlicesList() { return  memorySlicesList;}
 
     public static void setLocation(int location) {
         MainApplication.location = location;
@@ -136,17 +161,26 @@ public class MainApplication extends Application {
         logList = FXCollections.observableArrayList(
                 new SystemLog("0","Null","System Start!")
         );
+
+        memorySliceLocation = new Vector<>();
+        memorySliceLocation.addElement(protect.getStart());
+        memorySliceLocation.addElement(protect.getSize());
+
+        PLMap = new HashMap<>();
+
+        memorySlicesList = FXCollections.observableArrayList(new MemorySlice(protect.getPcb()));
     }
 
     //加入新的PCB
     public static boolean insertPCB(PCB pcb){
         //检查内存溢出
-        /*
-        if((location+pcb.getSize())>progressList.get(1).getStart()+8192){
+
+        if(pcb.getStart()+pcb.getSize()>8192){
             mainController.error(1);
             return false;
         }
-         */
+
+        memorySlicesList.add(new MemorySlice(pcb));
         PCBList.add(pcb);
         return true;
 
@@ -156,19 +190,8 @@ public class MainApplication extends Application {
     public static void deletePCB(PCB pcb){
         PCBList.remove(pcb);
     }
+
+    public Parent getRoot(){
+        return root;
+    }
 }
-
-
-
-
-/*
-* 目前的设想是，用progressList接收所有的进程，用PCBList接收在内存内运行的进程
-* 正好也符合进了内存才开始创建PCB。
-* 对内存溢出的检查则需要较大改动，改为进入PCBList后再进行检查是否溢出，而不是创建进程就检查。
-* 暂定为此。
-* */
-
-/*
-* 只有要进PCBList的Progress才会分配调用createPCB函数
-* 进而创建PCB
-* */

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
@@ -25,14 +26,14 @@
             <TableColumn fx:id="POSize" text="Size" />
             <TableColumn fx:id="POStart" prefWidth="100.0" text="Start" />
             <TableColumn fx:id="PONext" prefWidth="100.0" text="Next Start" />
-            <TableColumn fx:id="POHangup" text="Hang Up" />
+            <TableColumn fx:id="POHangup" prefWidth="78.0" text="Hang Up" />
         </columns>
       </TableView>
       <TableView fx:id="systemLog" layoutX="800.0" layoutY="595.0" prefHeight="300.0" prefWidth="790.0">
         <columns>
           <TableColumn fx:id="SLTime" prefWidth="200.0" text="Time" />
           <TableColumn fx:id="SLPID" prefWidth="75.0" text="PID" />
-            <TableColumn fx:id="SLContent" prefWidth="515.0" text="Content" />
+            <TableColumn fx:id="SLContent" prefWidth="513.0" text="Content" />
         </columns>
       </TableView>
       <GridPane alignment="CENTER" layoutX="40.0" layoutY="240.0" prefHeight="206.0" prefWidth="233.0">
@@ -153,12 +154,12 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Button fx:id="start" layoutX="680.0" layoutY="185.0" mnemonicParsing="false" onAction="#start" prefWidth="105.0" text="Start">
+      <Button fx:id="start" layoutX="680.0" layoutY="240.0" mnemonicParsing="false" onAction="#start" prefWidth="105.0" text="Start">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="pause" layoutX="680.0" layoutY="250.0" mnemonicParsing="false" onAction="#pause" prefWidth="105.0" text="Pause">
+      <Button fx:id="pause" layoutX="680.0" layoutY="305.0" mnemonicParsing="false" onAction="#pause" prefWidth="105.0" text="Pause">
          <font>
             <Font size="18.0" />
          </font>
@@ -177,7 +178,7 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <GridPane gridLinesVisible="true" layoutX="370.0" layoutY="175.0" prefHeight="280.0" prefWidth="285.0">
+      <GridPane gridLinesVisible="true" layoutX="370.0" layoutY="230.0" prefHeight="280.0" prefWidth="285.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="110.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
@@ -274,7 +275,7 @@
             </Label>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="805.0" layoutY="176.0" prefHeight="281.0" prefWidth="285.0">
+      <GridPane gridLinesVisible="true" layoutX="805.0" layoutY="230.0" prefHeight="281.0" prefWidth="285.0">
          <children>
             <Label text="Running:">
                <font>
@@ -350,22 +351,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button fx:id="hangUp" layoutX="550.0" layoutY="135.0" mnemonicParsing="false" onAction="#hangUpRunning" prefHeight="36.0" prefWidth="105.0" text="Hang Up">
+      <Button fx:id="hangUp" layoutX="550.0" layoutY="190.0" mnemonicParsing="false" onAction="#hangUpRunning" prefHeight="36.0" prefWidth="105.0" text="Hang Up">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="370.0" layoutY="140.0" text="Running Progress:">
+      <Label layoutX="370.0" layoutY="195.0" text="Running Progress:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="805.0" layoutY="142.0" text="Memory Queue:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="CENTER" layoutX="1175.0" layoutY="65.0" text="System Tips:">
+      <Label layoutX="805.0" layoutY="195.0" text="Memory Queue:">
          <font>
             <Font size="18.0" />
          </font>
@@ -423,12 +419,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="NormalPic" fitHeight="150.0" fitWidth="150.0" layoutX="1200.0" layoutY="350.0">
+      <ImageView fx:id="NormalPic" fitHeight="150.0" fitWidth="150.0" layoutX="1204.0" layoutY="67.0">
          <image>
             <Image url="@../../../Img/Grade100.bmp" />
          </image>
       </ImageView>
-      <ImageView fx:id="WarningPic" fitHeight="150.0" fitWidth="150.0" layoutX="1350.0" layoutY="350.0">
+      <ImageView fx:id="WarningPic" fitHeight="150.0" fitWidth="150.0" layoutX="1354.0" layoutY="67.0">
          <image>
             <Image url="@../../../Img/Grade0.bmp" />
          </image>
@@ -443,40 +439,28 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label contentDisplay="CENTER" layoutX="1190.0" layoutY="90.0" text="1.PID is unrepeatable">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="CENTER" layoutX="1190.0" layoutY="115.0" text="2.Mods can only be changed">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="CENTER" layoutX="1205.0" layoutY="140.0" text="After the system is paused">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="CENTER" layoutX="1190.0" layoutY="165.0" text="3.Bug is unavoidable">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label contentDisplay="CENTER" layoutX="1205.0" layoutY="190.0" text="So just treat them as a special character">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="releasePID" layoutX="680.0" layoutY="315.0" prefHeight="23.0" prefWidth="105.0" promptText="PID">
+      <TextField fx:id="releasePID" layoutX="680.0" layoutY="370.0" prefHeight="23.0" prefWidth="105.0" promptText="PID">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button fx:id="releaseButton" layoutX="680.0" layoutY="380.0" mnemonicParsing="false" onAction="#release" prefWidth="105.0" text="Release ">
+      <Button fx:id="releaseButton" layoutX="680.0" layoutY="435.0" mnemonicParsing="false" onAction="#release" prefWidth="105.0" text="Release ">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
+      <Label fx:id="memerySlice" layoutX="373.0" layoutY="110.0" prefHeight="50.0" prefWidth="720.0" style="-fx-background-color: #e0f0ff; -fx-background-radius: 15; -fx-border-color: #6783ff; -fx-border-radius: 15; -fx-border-width: 2;" textFill="#e0f0ff" />
+      <TableView fx:id="memeryLog" layoutX="1170.0" layoutY="330.0" prefHeight="210.0" prefWidth="302.0">
+        <columns>
+          <TableColumn fx:id="MLPID" prefWidth="100.0" text="PID" />
+          <TableColumn fx:id="MLSTART" prefWidth="100.0" text="START" />
+            <TableColumn fx:id="MLEND" prefWidth="100.0" text="END" />
+        </columns>
+      </TableView>
+      <Label layoutX="1165.0" layoutY="305.0" prefHeight="24.0" prefWidth="300.0" text=" Memery Log：">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

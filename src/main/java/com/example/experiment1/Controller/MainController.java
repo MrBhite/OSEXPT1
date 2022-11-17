@@ -1,26 +1,23 @@
 package com.example.experiment1.Controller;
 
-import com.example.experiment1.Class.PCB;
+import com.example.experiment1.Class.MemorySlice;
 import com.example.experiment1.Class.Progress;
 import com.example.experiment1.Class.SystemLog;
 import com.example.experiment1.MainApplication;
 import com.example.experiment1.Service.ProgressControlService;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
-import java.lang.reflect.InvocationTargetException;
-import java.net.SocketOption;
 import java.util.*;
 
 public class MainController {
@@ -94,6 +91,14 @@ public class MainController {
     public TableColumn SLContent;
     public TextField releasePID;
     public Button releaseButton;
+    public Label memerySlice;
+    public Button hangUp;
+
+    //以下为内存日志表格控件
+    public TableView memeryLog;
+    public TableColumn MLPID;
+    public TableColumn MLSTART;
+    public TableColumn MLEND;
 
     private MainApplication mainApplication;//主程序
     private ProgressControlService progressControlService;
@@ -110,6 +115,7 @@ public class MainController {
 
         initPOTable();
         initSLTable();
+        initMLTable();
     }
 
     public MainApplication getMainApplication(){
@@ -148,7 +154,18 @@ public class MainController {
 
         SLTime.setStyle( "-fx-alignment: CENTER;");
         SLPID.setStyle( "-fx-alignment: CENTER;");
-        systemLog.setItems(this.mainApplication.getLogList());
+        systemLog.setItems(mainApplication.getLogList());
+    }
+
+    public void initMLTable(){
+        MLPID.setCellValueFactory(new PropertyValueFactory<>("PID"));
+        MLSTART.setCellValueFactory(new PropertyValueFactory<>("start"));
+        MLEND.setCellValueFactory(new PropertyValueFactory<>("end"));
+
+        MLPID.setStyle( "-fx-alignment: CENTER;");
+        MLSTART.setStyle( "-fx-alignment: CENTER;");
+        MLEND.setStyle( "-fx-alignment: CENTER;");
+        memeryLog.setItems(mainApplication.getMemorySlicesList());
     }
 
     //添加进程
@@ -213,11 +230,12 @@ public class MainController {
         //加入新进程
         this.mainApplication.getProgressList().add(tmp);
 
+        //新进程入PCB队列
         if(MainApplication.getPCBList().size()<6) {
             tmp.setStatus(0);
             tmp.createPCB();
-            if(!this.mainApplication.insertPCB(tmp.getPcb()))
-                return;
+            setMemorySliceLocation(tmp);
+            this.mainApplication.insertPCB(tmp.getPcb());
             //查看是否有前驱并置为wait
             for(Progress pro:mainApplication.getProgressList()){
                 if(pro.getPID().equals(tmp.getFormer())&&!(pro.getStatus().equals("Done"))){
@@ -248,7 +266,7 @@ public class MainController {
         for(int i = Integer.parseInt(randomNumber.getValue().toString()); i > 0 ; i--){
             Random rd =  new  Random(t+i); //作为种子数传入到Random的构造器中
             double time = Double.parseDouble(mainApplication.df.format(rd.nextInt(40)*0.1+2));
-            int size = (rd.nextInt(10)+1)*128;
+            int size = (rd.nextInt(7)+3)*128;
             int location;
             int pid = MainApplication.getPID();
             location = MainApplication.getLocation();
@@ -270,8 +288,8 @@ public class MainController {
                     time,
                     time,
                     size,
-                    location,
-                    location+ size);
+                    0,
+                    0);
 
             //加入新进程
             this.mainApplication.getProgressList().add(tmp);
@@ -280,6 +298,7 @@ public class MainController {
             if(MainApplication.getPCBList().size()<6) {
                 tmp.setStatus(0);
                 tmp.createPCB();
+                setMemorySliceLocation(tmp);
                 this.mainApplication.insertPCB(tmp.getPcb());
                 MainApplication.setReserveProgress(MainApplication.getReserveProgress()+1);
             }
@@ -301,7 +320,7 @@ public class MainController {
             MainApplication.setPause(false);
             return;
         }
-        progressControlService.setPCBList(MainApplication.getPCBList(),mainApplication.getProgressList());
+        progressControlService.setList(MainApplication.getPCBList(), mainApplication.getProgressList(), mainApplication.getMemorySlicesList());
         progressControlService.start();
         //setRunning();
         /*
@@ -346,13 +365,32 @@ public class MainController {
 
     //没办法人家就是小笨猪人家就是不会自己写exception嘛。
     public void error(int e){
-        System.out.println(e);
+        //获得时间
+        Date tmpDate = new Date(System.currentTimeMillis());
+        String tmpDateString = getMainApplication().getDdf().format(tmpDate);
         switch (e){
-            case 0-> WarningLabel.setText("Invalid input detected!");//错误输入(包括PID冲突，输入栏格式错误)
-            case 1-> WarningLabel.setText("Memory overflow!");//内存溢出
+            case 0-> {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        WarningLabel.setText("Invalid input detected!");//错误输入(包括PID冲突，输入栏格式错误)
+                    }
+                });
+                getMainApplication().getLogList().add(new SystemLog(tmpDateString,"NULL","Invalid input detected! The system is paused automatically."));
+            }
+            case 1-> {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        WarningLabel.setText("Memory overflow!");//内存溢出
+                    }
+                });
+                getMainApplication().getLogList().add(new SystemLog(tmpDateString,"NULL","Memory overflow! Please restart the System."));
+            }
         }
         WarningPic.setVisible(true);
         NormalPic.setVisible(false);
+        MainApplication.setPause(true);
     }
 
     public void resetPic(){
@@ -419,5 +457,127 @@ public class MainController {
                 break;
             }
         }
+    }
+
+    public void setMemorySliceLocation(Progress progress){
+        Vector<Integer> memorySliceLocation = MainApplication.getMemorySliceLocation();
+        int lastEnd = memorySliceLocation.size()-1;
+        int size = progress.getSize();
+        //0位插入
+        if(memorySliceLocation.get(0)>size){
+            progress.setStart(0);
+            progress.setNext(size);
+            progress.getPcb().setStart(0);
+            progress.getPcb().setNext(size);
+            memorySliceLocation.insertElementAt(0,0);
+            memorySliceLocation.insertElementAt(size,1);
+            addLabel(progress);
+            return;
+        }
+
+        //间隙插入
+        for(int i = 2; i <lastEnd ; i += 2){
+            int end = memorySliceLocation.get(i-1);
+            int start = memorySliceLocation.get(i);
+            int space = start - end;
+            if(space>progress.getSize()){
+                progress.setStart(end);
+                progress.setNext(end + size);
+                progress.getPcb().setStart(end);
+                progress.getPcb().setNext(end + size);
+                memorySliceLocation.insertElementAt(end,i);//本质上是插入到上一个结束加一的位置，即(i-1)+1
+                memorySliceLocation.insertElementAt(end+size,i+1);
+                addLabel(progress);
+                return;
+            }
+        }
+
+        //最后插入
+        int lastValue = memorySliceLocation.get(lastEnd);
+        progress.setStart(lastValue);
+        progress.setNext(lastValue + size);
+        progress.getPcb().setStart(lastValue);
+        progress.getPcb().setNext(lastValue + size);
+        memorySliceLocation.addElement(lastValue);
+        memorySliceLocation.addElement(lastValue + size);
+        addLabel(progress);
+    }
+
+    public void releaseMemory(Progress progress){
+        Vector<Integer> memorySliceLocation = MainApplication.getMemorySliceLocation();
+        int lastEnd = memorySliceLocation.size()-1;
+        int size = progress.getSize();
+        int pStart = progress.getStart();
+        ObservableList<MemorySlice> memorySliceList = MainApplication.getMemorySlicesList();
+        for(int i = 0; i < lastEnd; i +=2){
+            if(pStart==memorySliceLocation.get(i)){
+                //删除vector中的内容
+                memorySliceLocation.remove(i);
+                memorySliceLocation.remove(i);
+                break;
+            }
+        }
+        //删除tableView中内容
+        for(MemorySlice memorySlice:memorySliceList){
+            if (memorySlice.getStart()==progress.getStart()){
+                memorySliceList.remove(memorySlice);
+                return;
+            }
+        }
+    }
+
+    public void addLabel(Progress progress){
+
+        Label tmp = new Label(progress.getPID());
+
+        //初始化样式
+        StringBuffer style = new StringBuffer();
+        style.append("-fx-alignment: center;");
+        style.append("-fx-background-color: #5b6bb2;");;
+        style.append("-fx-border-color: #b8afff;");
+        style.append("-fx-border-width: 2;");
+        style.append("-fx-pref-height: 46;");
+        style.append("-fx-font-size:  18;");
+        style.append("-fx-text-fill:  #bbbfc9;");
+
+        //如果从0开始设置圆角
+        if(progress.getStart()==0){
+            style.append("-fx-border-radius: 13 0 0 13;");
+            style.append("-fx-background-radius: 13 0 0 13;");
+        }
+
+        //设置位置
+        int x = 375+progress.getStart()*716/8192-1;
+        int y = 112;
+        tmp.setLayoutX(x);
+        tmp.setLayoutY(y);
+
+        //设置长度
+        int width = progress.getSize()*716/8192+2;
+        tmp.setPrefWidth(width);
+
+        //添加到面板上
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tmp.setStyle(style.toString());
+                AnchorPane root = (AnchorPane) mainApplication.getRoot();
+                root.getChildren().add(tmp);
+            }
+        });
+        MainApplication.getPLMap().put(progress,tmp);
+    }
+
+    public void removeLabel(Progress progress) throws RuntimeException{
+        HashMap<Progress, Label> PLMap = MainApplication.getPLMap();
+        Label label = PLMap.get(progress);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AnchorPane root = (AnchorPane) mainApplication.getRoot();
+                root.getChildren().remove(label);
+            }
+        });
+        PLMap.remove(progress);
     }
 }

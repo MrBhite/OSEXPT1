@@ -1,5 +1,6 @@
 package com.example.experiment1.Service;
 
+import com.example.experiment1.Class.MemorySlice;
 import com.example.experiment1.Class.PCB;
 import com.example.experiment1.Class.Progress;
 import com.example.experiment1.Class.SystemLog;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Vector;
 
 import static java.lang.Math.abs;
 
@@ -17,13 +19,15 @@ public class ProgressControlService extends Thread{
     MainController mainController;
     private ObservableList<PCB> PCBList;
     private ObservableList<Progress> progressesList;
+    private ObservableList<MemorySlice> memorySliceList;
     public ProgressControlService(MainController mainController){
         this.mainController=mainController;
     }
 
-    public void setPCBList(ObservableList<PCB> PCBList, ObservableList<Progress> progressesList) {
+    public void setList(ObservableList<PCB> PCBList, ObservableList<Progress> progressesList, ObservableList<MemorySlice> memorySliceList) {
         this.PCBList = PCBList;
         this.progressesList = progressesList;
+        this.memorySliceList = memorySliceList;
     }
 
     @Override
@@ -101,24 +105,28 @@ public class ProgressControlService extends Thread{
             //如果p不处于挂起
             if(!p.getStatus().equals("Hang Up")) {
                 int pri = p.getPriorityy();
-                p.setPriorityy(pri + 1);
                 for (Progress pro : progressesList)
                     if (pro.getPID() == p.getPID())
-                        pro.setPriorityy(pri);
+                        pro.setPriorityy(pri + 1);
             }
         }
 
         //进程完成
         if(abs(tmpProgress.getRTime())<=0.001){
+
+            mainController.removeLabel(tmpProgress);
             tmpProgress.setRTime(0);
             tmpProgress.setStatus(4);
             tmpProgress.setRTime(0);
+            mainController.releaseMemory(tmpProgress);
             PCBList.remove(0);
+
             //向PCB队列增加新进PCB
             int reserve = mainController.getMainApplication().getReserveProgress();
             while(reserve<progressesList.size()&&PCBList.size()<6) {
                 Progress newProgress = progressesList.get(reserve);
                 PCB tmpPCB = newProgress.createPCB();
+                mainController.setMemorySliceLocation(newProgress);
 
                 //查看是否有前驱并置为wait
                 for(Progress pro:progressesList){
